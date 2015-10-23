@@ -14,14 +14,24 @@
 ## setting the cacheable inverse of the matrix
 
 makeCacheMatrix <- function(x = matrix()) {
+    # Intialize the inverse as NULL to prevent returning erroneous results from
+    # a pre-mature call to getInverse()
     inverse <- NULL
+    
     setMatrix <- function(y) {
         x <<- y
-        inverse <<- NULL
+        inverse <<- NULL # Reset to NULL until a call is made to getInverse()
     }
-    getMatrix <- function() x
+    
+    getMatrix <- function() x   # Get the stored value of the original matrix
+    
+    # Store the inverse in a cache in the function environment
     setInverse <- function(i) inverse <<- i
+    
+    # Return the cached inverse
     getInverse <- function() inverse
+    
+    # Make the functions available to be called by returning them as a list
     list(setMatrix = setMatrix, getMatrix = getMatrix,
          setInverse = setInverse,
          getInverse = getInverse)
